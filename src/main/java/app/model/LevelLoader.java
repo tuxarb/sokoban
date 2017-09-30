@@ -1,19 +1,15 @@
 package app.model;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
 
 class LevelLoader {
-    private Path levels;
-
-    LevelLoader(Path levels) {
-        this.levels = levels;
-    }
+    private InputStream levels;
 
     GameObjects getLevel(int level) {
         level %= 60;
@@ -23,7 +19,7 @@ class LevelLoader {
         Set<Box> boxes = new HashSet<>();
         Set<Home> homes = new HashSet<>();
         Player player = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader(levels.toString()))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(levels))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.contains("Maze: " + level)) {
@@ -67,5 +63,9 @@ class LevelLoader {
             e.printStackTrace();
         }
         return new GameObjects(walls, boxes, homes, player);
+    }
+
+    void setInputStream(InputStream inputStream) {
+        this.levels = inputStream;
     }
 }

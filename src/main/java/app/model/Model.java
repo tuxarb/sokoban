@@ -2,26 +2,22 @@ package app.model;
 
 import app.controller.EventListener;
 
-import java.nio.file.Paths;
+import java.io.InputStream;
 
 public class Model {
     private EventListener eventListener;
     private GameObjects gameObjects;
     private int currentLevel = 1;
-    private LevelLoader levelLoader = new LevelLoader(
-            Paths.get(getClass().getClassLoader().getResource("levels.txt").getPath().substring(1))
-    );
+    private LevelLoader levelLoader;
     static int FIELD_SELL_SIZE = 20;
 
-    public void setEventListener(EventListener eventListener) {
-        this.eventListener = eventListener;
-    }
-
-    public GameObjects getGameObjects() {
-        return gameObjects;
+    public Model() {
+        levelLoader = new LevelLoader();
     }
 
     private void restartLevel(int level) {
+        InputStream in = getClass().getResourceAsStream("/levels.txt");
+        levelLoader.setInputStream(in);
         gameObjects = levelLoader.getLevel(level);
     }
 
@@ -130,5 +126,13 @@ public class Model {
 
     public int getCurrentLevel() {
         return currentLevel;
+    }
+
+    public void setEventListener(EventListener eventListener) {
+        this.eventListener = eventListener;
+    }
+
+    public GameObjects getGameObjects() {
+        return gameObjects;
     }
 }
