@@ -5,10 +5,11 @@ import app.controller.EventListener;
 import app.model.GameObjects;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 
 public class View extends JFrame {
-    private Controller controller;
+    private EventListener controller;
     private Field field;
 
     public View(Controller controller) {
@@ -28,6 +29,11 @@ public class View extends JFrame {
             ImageIcon icon = new ImageIcon(iconURL);
             setIconImage(icon.getImage());
         }
+        UIManager.put("OptionPane.background", Color.DARK_GRAY);
+        UIManager.put("Panel.background", Color.DARK_GRAY);
+        UIManager.put("OptionPane.messageForeground", Color.WHITE);
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
+        UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 12));
         setVisible(true);
     }
 
@@ -41,11 +47,15 @@ public class View extends JFrame {
 
     public void completed(int level) {
         update();
-        JOptionPane.showMessageDialog(null, level + " level is passed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, level + " level is completed!", "Success!", JOptionPane.INFORMATION_MESSAGE);
         controller.startNextLevel();
     }
 
     GameObjects getGameObjects() {
         return controller.getGameObjects();
+    }
+
+    int getCurrentLevel() {
+        return controller.getCurrentLevel();
     }
 }

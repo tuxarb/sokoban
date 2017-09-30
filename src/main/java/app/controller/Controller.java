@@ -11,8 +11,12 @@ public class Controller implements EventListener {
 
     private Controller() {
         model = new Model();
-        model.restart();
         model.setEventListener(this);
+        Integer startLevel = getStartLevel();
+        if (startLevel != null) {
+            model.setStartLevel(startLevel);
+        }
+        model.restart();
         view = new View(this);
         view.init();
         view.setEventListener(this);
@@ -45,7 +49,26 @@ public class Controller implements EventListener {
         view.completed(level);
     }
 
+    @Override
+    public int getCurrentLevel() {
+        return model.getCurrentLevel();
+    }
+
+    @Override
     public GameObjects getGameObjects() {
         return model.getGameObjects();
+    }
+
+    private Integer getStartLevel() {
+        String startLevel = System.getProperty("startLevel");
+        if (startLevel == null)
+            return null;
+        int level;
+        try {
+            level = Integer.parseInt(startLevel);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return (level > 0 && level <= 60) ? level : null;
     }
 }

@@ -35,9 +35,9 @@ class Field extends JPanel {
         for (GameObject object : set) {
             object.draw(g, this);
         }
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Copperplate", 2, 20));
-        g.drawString("R - R E S T A R T", getWidth() / 2 - 80, getHeight() - 5);
+        g.setColor(Color.lightGray);
+        g.setFont(new Font("Copperplate", 2, 24));
+        g.drawString("Level: " + view.getCurrentLevel(), getWidth() / 2 - 50, getHeight() - 5);
 
     }
 
@@ -62,7 +62,10 @@ class Field extends JPanel {
                     eventListener.move(Direction.DOWN);
                     break;
                 case KeyEvent.VK_R:
-                    eventListener.restart();
+                    int result = JOptionPane.showConfirmDialog(view, "Are you sure?", "Restarting...", JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.YES_OPTION) {
+                        eventListener.restart();
+                    }
                     break;
             }
         }

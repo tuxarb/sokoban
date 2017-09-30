@@ -4,9 +4,9 @@ abstract class CollisionObject extends GameObject {
     CollisionObject(int x, int y) {
         super(x, y);
     }
+
     boolean isCollision(GameObject gameObject, Direction direction) {
         boolean result = false;
-
         switch (direction) {
             case LEFT:
                 if (getX() - Model.FIELD_SELL_SIZE == gameObject.getX() && getY() == gameObject.getY())

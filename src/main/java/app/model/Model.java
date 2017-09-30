@@ -8,7 +8,9 @@ public class Model {
     private EventListener eventListener;
     private GameObjects gameObjects;
     private int currentLevel = 1;
-    private LevelLoader levelLoader = new LevelLoader(Paths.get(getClass().getClassLoader().getResource("levels.txt").getPath().substring(1)));
+    private LevelLoader levelLoader = new LevelLoader(
+            Paths.get(getClass().getClassLoader().getResource("levels.txt").getPath().substring(1))
+    );
     static int FIELD_SELL_SIZE = 20;
 
     public void setEventListener(EventListener eventListener) {
@@ -30,6 +32,10 @@ public class Model {
     public void startNextLevel() {
         currentLevel++;
         restart();
+    }
+
+    public void setStartLevel(int level) {
+        currentLevel = level;
     }
 
     public void move(Direction direction) {
@@ -120,5 +126,9 @@ public class Model {
         }
         if (flag)
             eventListener.levelCompleted(currentLevel);
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 }
