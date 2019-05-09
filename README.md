@@ -21,3 +21,8 @@
 Иначе:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**_java -jar -DstartLevel=_number_ ваш/путь/к/sokoban.jar_**<br>
 где **number** - число от _1_ до _60_. (В случае неверного ввода игра по умолчанию начинается с **_1-го_** уровня)
+
+---
+
+### _Как это выглядит_
+![](https://user-images.githubusercontent.com/15519803/57480364-2c035980-72a8-11e9-831e-a20e4cb38dbf.png)
